@@ -12,8 +12,14 @@ const router = createRouter({
     {
       path: '/SingleRepo/:id',
       name: 'SingleRepo',
-      component: () => import('../views/SingleRepo.vue')
-    }
+      component: () => import('../views/SingleRepo.vue'),
+      props: true
+    },
+    {
+      path: '/:pathMatch(.*)',
+      name: 'ErrorPage',
+      component: () => import('../Component/ErrorPage.vue'),
+  }
   ]
 })
 
