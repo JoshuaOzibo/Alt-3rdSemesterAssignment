@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import {useFetch} from '../Component/composables/UseFetch.js';
 import UpdateRepo from '../Component/UpdateRepo.vue';
+import Spinner from '@/Component/Spinner.vue';
 
 const {apiToken} = useFetch();
 const router = useRouter();
@@ -18,14 +19,10 @@ const props = defineProps({
   }
 });
 
-console.log(props.id)
-
 
 
 // State to hold repository data
 const repository = ref(null);
-
-console.log(repository.value)
 
 const fetchRepository = async (id) => {
   try {
@@ -50,8 +47,6 @@ onMounted(() => {
 
 
 //event to delete repo
-
-
 const handleDeleteEvent = async() => {
   const url = `https://api.github.com/repos/JoshuaOzibo/${props.id}`;
   try {
@@ -99,8 +94,30 @@ const handleDeleteEvent = async() => {
         </div>
       </li>
     </ul>
-
-    <h2 v-else>Loading...</h2>
+    <div class="loader" v-else>
+      <p><Spinner /></p>
+    </div>
   </div>
 </template>
+
+
+<style scoped>
+  .loader{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+  .loader p{
+    position: fixed;
+    top: 50vh;
+    left: 45%;
+    z-index: 20;
+}
+</style>
 

@@ -5,6 +5,7 @@ import SearchRepo from '../Component/Search.vue';
 import {ref, onMounted, computed, watch} from 'vue';
 import CreateRepoModal from '../Component/CreateRepoModal.vue';
 import { useRouter } from 'vue-router';
+import Spinner from '../Component/Spinner.vue';
 
 const {dataFetch} = useFetch();
 const router = useRouter();
@@ -67,10 +68,9 @@ const handleSingleItem = (item) => {
 
 </script>
 
-
 <template>
-  <nav class='fixed w-full px-5'>
-    <div class="flex items-center justify-between">
+  <nav class=''>
+    <div class="flex items-center justify-between mx-[20px]">
       <CreateRepoModal />
       <input v-model.trim="searchInput" class="border w-[40%] h-[40px] border-black pl-2" placeholder="Search for Repo" type="text">
       <select v-model="selectedYear" class="w-[30%] cursor-pointer border-black h-[40px] border">
@@ -82,8 +82,10 @@ const handleSingleItem = (item) => {
     </div>
   </nav>
   <div class="px-5">
-    <div class="mt-[100px]">
-      <h2 v-if="pagedItems.length === 0">Loading...</h2>
+    <div class="mt-[30px]">
+      <div class="loader" v-if="pagedItems.length === 0">
+            <p><Spinner /></p>
+      </div>
       <ul v-else class="grid grid-cols-1 my-[20px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
   <li @click="handleSingleItem(item)" v-for="(item, index) in pagedItems" :key="index" class="border-2 bg-slate-200 rounded-md p-4">
     <h2 class="text-black text-center">{{ item.name }}</h2>
@@ -102,4 +104,26 @@ const handleSingleItem = (item) => {
   <Pagination :items="filteredData" :itemsPerPage="itemsPerPage" @pageChanged="updatePagedItems" />
  </div>
 </template>
+
+
+
+<style scoped>
+  .loader{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+  .loader p{
+    position: fixed;
+    top: 50vh;
+    left: 45%;
+    z-index: 20;
+}
+</style>
 
