@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeMount } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import {useFetch} from '../Component/composables/UseFetch.js';
 import UpdateRepo from '../Component/UpdateRepo.vue';
@@ -9,8 +9,6 @@ const {apiToken} = useFetch();
 const router = useRouter();
 
 const newToken = useFetch();
-
-console.log(apiToken)
 // Define props
 const props = defineProps({
   id: {
@@ -24,7 +22,7 @@ const props = defineProps({
 // State to hold repository data
 const repository = ref(null);
 
-const fetchRepository = async (id) => {
+const mountData = async() => {
   try {
     const response = await fetch(`https://api.github.com/repos/JoshuaOzibo/${props.id}`, {
     headers: {
@@ -37,12 +35,9 @@ const fetchRepository = async (id) => {
   } catch (error) {
     console.error('Error fetching repository:', error);
   }
-};
+}
 
-
-onMounted(() => {
-  fetchRepository(props.id);
-});
+mountData()
 
 
 

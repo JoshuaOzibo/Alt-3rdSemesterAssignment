@@ -54,8 +54,11 @@ const handleSubmitData = async (e) => {
         Add New Repo
       </button>
   
-      <div class="Overlay" @click="(() => open = !open)" v-if="open">
+      <div class="Overlay" v-if="open">
         <div v-if="open" class="Backdrop p-[10px] rounded-md">
+          <div class="w-full flex justify-end">
+            <button @click="(() => open = !open)" class="text-xl px-[15px] py-[5px] rounded-md border-2 border-black">X</button>
+          </div>
         <form @submit.prevent="handleSubmitData">
           <div>
             <label for="name">Name Of Repo</label><br />

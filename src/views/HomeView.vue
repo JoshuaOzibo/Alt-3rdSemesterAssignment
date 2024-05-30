@@ -72,8 +72,8 @@ const handleSingleItem = (item) => {
   <nav class=''>
     <div class="flex items-center justify-between mx-[20px]">
       <CreateRepoModal />
-      <input v-model.trim="searchInput" class="border w-[40%] h-[40px] border-black pl-2" placeholder="Search for Repo" type="text">
-      <select v-model="selectedYear" class="w-[30%] cursor-pointer border-black h-[40px] border">
+      <input v-model.trim="searchInput" class="border w-[40%] rounded-md h-[40px] border-black pl-2" placeholder="Search for Repo" type="text">
+      <select v-model="selectedYear" class="w-[30%] rounded-md px-[5px] cursor-pointer border-black h-[40px] border">
         <option value="All">All</option>
         <option value="2022">2022</option>
         <option value="2023">2023</option>
@@ -86,7 +86,7 @@ const handleSingleItem = (item) => {
       <div class="loader" v-if="pagedItems.length === 0">
             <p><Spinner /></p>
       </div>
-      <ul v-else class="grid grid-cols-1 my-[20px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <ul v-else class="grid grid-cols-1 my-[20px] sm:grid-cols-2 md:grid-cols-2 gap-4">
   <li @click="handleSingleItem(item)" v-for="(item, index) in pagedItems" :key="index" class="border-2 bg-slate-200 rounded-md p-4">
     <h2 class="text-black text-center">{{ item.name }}</h2>
     <div class="flex justify-between mt-[20px]">
