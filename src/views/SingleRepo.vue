@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import {useFetch} from '../Component/composables/UseFetch.js';
 import UpdateRepo from '../Component/UpdateRepo.vue';
@@ -7,6 +7,8 @@ import Spinner from '@/Component/Spinner.vue';
 
 const {apiToken} = useFetch();
 const router = useRouter();
+
+const emits = defineEmits(['repoDeleted']);
 
 const newToken = useFetch();
 // Define props
@@ -39,6 +41,12 @@ const mountData = async() => {
 
 mountData()
 
+// Function to get the year from a date string
+const getYearFromDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.getFullYear();
+};
+
 
 
 //event to delete repo
@@ -58,6 +66,7 @@ const handleDeleteEvent = async() => {
       throw new Error('Failed to delete repository');
     }
     console.log('Repository deleted successfully');
+    emits('repoDeleted', props.id);
     router.push('/');
   } catch (error) {
     console.error('Error deleting repository:', error);
@@ -66,23 +75,29 @@ const handleDeleteEvent = async() => {
 </script>
 
 <template>
-  <div class="">
+  <div class="text-[]">
     <ul
       v-if="repository"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      class="grid grid-cols-1 w-[70%] m-auto gap-4"
     >
-      <li class="border-2 bg-slate-200 rounded-md p-4">
-        <h2 class="text-black text-center">{{ repository.name }}</h2>
-        <div class="flex justify-between mt-2">
-          <p>{{ repository.language }}</p>
-          <p>{{ repository.created_at }}</p>
-        </div>
+      <li class="border-2 border-[#3fb27f] hover:shadow-md transition-all  mt-[70px] hover:shadow-[#48e6a5] bg-[#33475b] rounded-md p-4">
+        <div class=" mb-[20px] flex justify-center m-auto">
+      <img class="w-[100px] mt-[-70px] h-[100px] rounded-full":src="repository.owner.avatar_url" alt="">
+    </div>
+    <h2 class="text-[#3fb27f] text-center uppercase font-bold">{{ repository.name }}</h2>
+    <div class="flex justify-between mt-[50px]">
+      <p class="text-[#3fb27f]">{{ repository.language }}</p>
+      <p class="text-[#3fb27f]">created at: {{ getYearFromDate(repository.created_at) }}</p>
+    </div>
+
+    <p class="text-[#3fb27f] mt-[20px]">Repo Url: {{ repository.html_url}}</p>
+    <p class="text-[#3fb27f] mt-[20px]">visibility type: {{ repository.visibility}}</p>
 
         <div class="w-full flex justify-between mt-[20px]">
           <UpdateRepo :repo="repository" />
           <button
             @click="handleDeleteEvent"
-            class="py-[10px] border border-white rounded-md cursor-pointer px-[25px]"
+            class="py-[10px] border border-[#3fb27f] text-[#3fb27f] bg-[#33475b] hover:bg-[#48e6a5] hover:text-[#33475b] transition-all rounded-md cursor-pointer px-[25px]"
           >
             Delete
           </button>

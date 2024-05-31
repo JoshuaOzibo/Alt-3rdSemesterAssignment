@@ -43,39 +43,45 @@ const handleSubmitData = async (e) => {
 
       const result = await response.json();
       console.log('Repository updated:', result);
-      open.value = false; // Close the modal on success
+
+      // Update the local state with the new repository data
+      Object.assign(props.repo, result);
+
+      // Close the modal 
+      open.value = false;
+      
     } catch (error) {
       console.error('Error updating repository:', error);
     }
-    open.value = false;
   } else {
     open.value = true;
   }
 };
+
 </script>
 
 <template>
   <div>
-    <button class="py-[10px] border border-white rounded-md cursor-pointer px-[25px]" @click="(() => open = !open)">
+    <button class="py-[10px] border border-[#3fb27f] text-[#3fb27f] bg-[#33475b] hover:bg-[#48e6a5] hover:text-[#33475b] transition-all rounded-md cursor-pointer px-[25px]" @click="(() => open = !open)">
       Update
     </button>
 
     <div class="Overlay" v-if="open">
         <div v-if="open" class="Backdrop p-[10px] rounded-md bg-green-700">
           <div class="w-full flex justify-end">
-            <button @click="(() => open = !open)" class="text-xl px-[15px] py-[5px] rounded-md border-2 border-black">X</button>
+            <button @click="(() => open = !open)" class="text-xl px-[15px] py-[5px] rounded-md border-2 border-black font-extrabold">X</button>
           </div>
       <form @submit.prevent="handleSubmitData">
         <div>
-          <label for="name">Name Of Repo</label><br />
+          <label class="text-[#33475b] font-bold" for="name">Name Of Repo:</label><br />
           <input v-model="repoName" class="w-full h-[40px] border-black mt-[10px] rounded-md border pl-2 outline-none" type="text" />
         </div>
         <div class="mt-[10px]">
-          <label for="discription">Discription Of Repo</label><br />
+          <label class="text-[#33475b] font-bold" for="discription">Discription Of Repo:</label><br />
           <input v-model="repoDesc" class="w-full h-[40px] border-black mt-[10px] rounded-md border pl-2 outline-none" type="text" />
         </div>
         <button
-          class="mt-[10px] bg-blue-400 mb-[5px] border px-[20px] py-[8px] rounded-md"
+        class="mt-[20px] border border-[#3fb27f] text-[#3fb27f] bg-[#33475b] hover:bg-[#48e6a5] hover:text-[#33475b] transition-all mb-[5px] px-[20px] py-[8px] rounded-md"
           type="submit"
         >
           Update Repo

@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-//#3fb27f, #48e6a5, #33475b
+
 
 </script>
 
