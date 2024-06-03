@@ -1,12 +1,12 @@
 <template>
     <div class="pagination py-[50px]">
-      <button @click="goToPage(1)" :disabled="currentPage === 1">First</button>
-      <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
+      <button class="border px-[17px] border-[#3fb27f] mt-[9px] text-[#3fb27f] hover:bg-[#48e6a5] hover:text-[#33475b] bg-[#33475b] transition-all font-bold mb-[10px] p-[10px] rounded-md" @click="goToPage(1)" :disabled="currentPage === 1">First</button>
+      <button class="border px-[17px] border-[#3fb27f] mt-[9px] text-[#3fb27f] hover:bg-[#48e6a5] hover:text-[#33475b] bg-[#33475b] transition-all font-bold mb-[10px] p-[10px] rounded-md" @click="prevPage" :disabled="currentPage === 1">Prev</button>
   
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <span class="text-[#33475b]">Page {{ currentPage }} of {{ totalPages }}</span>
   
-      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-      <button @click="goToPage(totalPages)" :disabled="currentPage === totalPages">Last</button>
+      <button class="border px-[15px] border-[#3fb27f] mt-[9px] text-[#3fb27f] hover:bg-[#48e6a5] hover:text-[#33475b] bg-[#33475b] transition-all font-bold mb-[10px] p-[10px] rounded-md" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+      <button  class="border px-[17px] border-[#3fb27f] mt-[9px] text-[#3fb27f] hover:bg-[#48e6a5] hover:text-[#33475b] bg-[#33475b] transition-all font-bold mb-[10px] p-[10px] rounded-md" @click="goToPage(totalPages)" :disabled="currentPage === totalPages">Last</button>
     </div>
   </template>
   
@@ -71,13 +71,6 @@ console.log(props.itemsPerPage)
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-  }
-  
-  button {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-    cursor: pointer;
   }
   
   button:disabled {

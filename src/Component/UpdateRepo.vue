@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useFetch } from '../Component/composables/UseFetch.js';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 const props = defineProps({
     repo: {
@@ -11,7 +12,7 @@ const props = defineProps({
 
 console.log(props.repo)
 
-const { apiToken } = useFetch();
+const apiToken = import.meta.env.VITE_APP_GITHUB_TOKEN;
 
 const open = ref(false);
 
@@ -22,7 +23,7 @@ const handleSubmitData = async (e) => {
   const repoData = {
     name: repoName.value,
     description: repoDesc.value,
-    private: false, // or true if you want to create a private repository
+    private: false,
   };
 
   if (repoData.name && repoData.description) {
@@ -49,9 +50,21 @@ const handleSubmitData = async (e) => {
 
       // Close the modal 
       open.value = false;
+      toast("Repository Updated Successfully..", {
+        "theme": "auto",
+        "type": "success",
+        "autoClose": 1000,
+        "dangerouslyHTMLString": true
+      })
       
     } catch (error) {
       console.error('Error updating repository:', error);
+      toast("Error updating repository", {
+        "theme": "auto",
+        "type": "error",
+        "autoClose": 1000,
+        "dangerouslyHTMLString": true
+      })
     }
   } else {
     open.value = true;

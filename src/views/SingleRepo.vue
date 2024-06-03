@@ -1,16 +1,17 @@
 <script setup>
 import { ref, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
-import {useFetch} from '../Component/composables/UseFetch.js';
 import UpdateRepo from '../Component/UpdateRepo.vue';
 import Spinner from '@/Component/Spinner.vue';
+import { useStore } from 'vuex';
 
-const {apiToken} = useFetch();
+
 const router = useRouter();
+const store = useStore();
+const apiToken = import.meta.env.VITE_APP_GITHUB_TOKEN;
 
 const emits = defineEmits(['repoDeleted']);
 
-const newToken = useFetch();
 // Define props
 const props = defineProps({
   id: {
@@ -50,27 +51,12 @@ const getYearFromDate = (dateString) => {
 
 
 //event to delete repo
-const handleDeleteEvent = async() => {
-  const url = `https://api.github.com/repos/JoshuaOzibo/${props.id}`;
-  try {
-    const response = await fetch(url, {
-      method: 'DELETE',
-      headers: {
-        "Accept": "application/vnd.github+json",
-        "Authorization": `Bearer ${newToken.apiToken}`,
-        "X-GitHub-Api-Version": "2022-11-28"
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to delete repository');
-    }
-    console.log('Repository deleted successfully');
-    emits('repoDeleted', props.id);
-    router.push('/');
-  } catch (error) {
-    console.error('Error deleting repository:', error);
-  }
+const handleDeleteEvent = async () => {
+  const repositoryId = props.id;
+  await store.dispatch('deleteRepository', repositoryId);
+  
+
+  router.push('/');
 };
 </script>
 
