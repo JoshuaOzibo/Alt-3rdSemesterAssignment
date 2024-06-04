@@ -10,10 +10,10 @@ export default createStore({
   mutations: {
     setRepositories(state, repositories) {
       state.repositories = repositories;
-      console.log(repositories)
+      // console.log(repositories)
     },
     deleteRepository(state, repositoryId) {
-      console.log(state.repositories)
+      // console.log(state.repositories)
       state.repositories.filter(repo => repo.name !== repositoryId);
     },
     addRepository(state, repository) {

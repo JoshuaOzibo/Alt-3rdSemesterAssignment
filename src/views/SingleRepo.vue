@@ -8,6 +8,7 @@ import { useStore } from 'vuex';
 
 const router = useRouter();
 const store = useStore();
+const isLoading = ref(true);
 const apiToken = import.meta.env.VITE_APP_GITHUB_TOKEN;
 
 const emits = defineEmits(['repoDeleted']);
@@ -37,6 +38,8 @@ const mountData = async() => {
     repository.value = await response.json();
   } catch (error) {
     console.error('Error fetching repository:', error);
+  }finally{
+    isLoading.value = false;
   }
 }
 
@@ -61,7 +64,10 @@ const handleDeleteEvent = async () => {
 </script>
 
 <template>
-  <div class="text-[]">
+      <div class="loader" v-if="isLoading">
+      <p><Spinner /></p>
+    </div>
+  <div v-else>
     <ul
       v-if="repository"
       class="grid grid-cols-1 w-[70%] m-auto gap-4"
@@ -89,11 +95,11 @@ const handleDeleteEvent = async () => {
           </button>
         </div>
       </li>
+     
     </ul>
-    <div class="loader" v-else>
-      <p><Spinner /></p>
-    </div>
+    
   </div>
+  
 </template>
 
 

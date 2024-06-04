@@ -24,15 +24,13 @@
     }
   });
 
-console.log(props.items)
-console.log(props.itemsPerPage)
+// console.log(props.items)
+// console.log(props.itemsPerPage)
   
   const emits = defineEmits(['pageChanged']);
   
   const currentPage = ref(1);
   const totalPages = computed(() => Math.ceil(props.items.length / props.itemsPerPage));
-
-  console.log(totalPages)
   
   const paginatedItems = computed(() => {
     const start = (currentPage.value - 1) * props.itemsPerPage;
