@@ -67,12 +67,12 @@ const handleDeleteEvent = async () => {
       <div class="loader" v-if="isLoading">
       <p><Spinner /></p>
     </div>
-  <div v-else>
+  <div class=" flex justify-center"else>
     <ul
       v-if="repository"
-      class="grid grid-cols-1 w-[70%] m-auto gap-4"
+      class="grid grid-cols-1 md:w-[70%] mx-[20px] m-auto gap-4"
     >
-      <li class="border-2 border-[#3fb27f] hover:shadow-md transition-all  mt-[70px] hover:shadow-[#48e6a5] bg-[#33475b] rounded-md p-4">
+      <li class="border-2 flex-wrap border-[#3fb27f] hover:shadow-md transition-all  mt-[70px] hover:shadow-[#48e6a5] bg-[#33475b] rounded-md p-4">
         <div class=" mb-[20px] flex justify-center m-auto">
       <img class="w-[100px] mt-[-70px] h-[100px] rounded-full":src="repository.owner.avatar_url" alt="">
     </div>
@@ -82,7 +82,8 @@ const handleDeleteEvent = async () => {
       <p class="text-[#3fb27f]">created at: {{ getYearFromDate(repository.created_at) }}</p>
     </div>
 
-    <p class="text-[#3fb27f] mt-[20px]">Repo Url: {{ repository.html_url}}</p>
+    <p class="text-[#3fb27f] mt-[20px]">Repo Url: <a class="cursor-pointer" :href="repository.html_url" target="_blank" rel="noopener noreferrer">{{ repository.html_url }}</a>
+</p>
     <p class="text-[#3fb27f] mt-[20px]">visibility type: {{ repository.visibility}}</p>
 
         <div class="w-full flex justify-between mt-[20px]">

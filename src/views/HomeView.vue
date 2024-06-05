@@ -24,7 +24,7 @@ const updatePagedItems = (items) => {
 const selectedYear = ref('All')
 const searchInput = ref('')
 
-// Fetch data and initialize pagination
+// fetch and mount Data 
 onMounted(async () => {
   try {
     await store.dispatch('fetchRepositories')
@@ -77,30 +77,33 @@ const getYearFromDate = (dateString) => {
   return date.getFullYear()
 }
 
+//handle single Repository route
 const handleSingleItem = (item) => {
   router.push({ name: 'SingleRepo', params: { id: item.name }, state: { item } })
 }
 </script>
 
 <template>
-  <nav class="">
-    <div class="flex items-center justify-between mx-[20px]">
+  <nav>
+    <div class=" md:flex items-center justify-between mx-[20px]">
       <CreateRepoModal @repoCreated="store.dispatch('fetchRepositories')" />
-      <input
+      <div class="md:w-[80%] md:ml-10 md:space-x-10 space-x-5 w-full flex justify-between">
+        <input
         v-model.trim="searchInput"
-        class="border border-[#3fb27f] outline-none w-[40%] rounded-md h-[40px] pl-2"
+        class="border border-[#3fb27f] outline-none w-full rounded-md h-[40px] pl-2"
         placeholder="Search for Repo"
         type="text"
       />
       <select
         v-model="selectedYear"
-        class="w-[30%] border-[#3fb27f] outline-none text-[#3fb27f] rounded-md px-[5px] cursor-pointer h-[40px] border"
+        class="w-full border-[#3fb27f] outline-none text-[#3fb27f] rounded-md px-[5px] cursor-pointer h-[40px] border"
       >
         <option value="All">All</option>
         <option value="2022">2022</option>
         <option value="2023">2023</option>
         <option value="2024">2024</option>
       </select>
+      </div>
     </div>
   </nav>
 
@@ -121,15 +124,15 @@ const handleSingleItem = (item) => {
         >
           <div class="mb-[20px] flex justify-center m-auto">
             <img
-              class="w-[100px] mt-[-70px] h-[100px] rounded-full"
+              class="w-[100px] mt-[-70px] border-4 border-[#3fb27f] h-[100px] rounded-full"
               :src="item.owner.avatar_url"
               alt=""
             />
           </div>
-          <h2 class="text-black text-center">{{ item.name }}</h2>
+          <h2 class="text-[#3fb27f] text-center">{{ item.name }}</h2>
           <div class="flex justify-between mt-[50px]">
-            <p class="text-black">{{ item.language }}</p>
-            <p class="text-black">created at: {{ getYearFromDate(item.created_at) }}</p>
+            <p class="text-[#3fb27f]">{{ item.language }}</p>
+            <p class="text-[#3fb27f]">created at: {{ getYearFromDate(item.created_at) }}</p>
           </div>
         </li>
       </ul>

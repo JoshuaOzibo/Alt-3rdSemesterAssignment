@@ -8,7 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
 
     <div>
-      <nav class="flex items-center px-[20px] bg-[#33475b] mb-[20px] py-[10px] justify-between">
+      <nav class="flex items-center px-[20px] bg-[#33475b] mb-[20px] py-[10px] border-b border-[#48e6a5] justify-between">
         <RouterLink to="/" class="font-bold text-lg hover:text-[17px] hover:text-[#48e6a5] text-[#3fb27f]">Home</RouterLink>
         <RouterLink to="/src/Component/ErrorPage.vue"> <p class="font-bold text-lg hover:text-[17px] hover:text-[#48e6a5] text-[#3fb27f]">TestErrorPage</p> </RouterLink>
       </nav>

@@ -43,7 +43,7 @@ const handleSubmitData = async (e) => {
       }
 
       const result = await response.json();
-      console.log('Repository updated:', result);
+      // console.log('Repository updated:', result);
 
       // Update the local state with the new repository data
       Object.assign(props.repo, result);
@@ -58,7 +58,7 @@ const handleSubmitData = async (e) => {
       })
       
     } catch (error) {
-      console.error('Error updating repository:', error);
+      // console.error('Error updating repository:', error);
       toast("Error updating repository", {
         "theme": "auto",
         "type": "error",
@@ -80,17 +80,17 @@ const handleSubmitData = async (e) => {
     </button>
 
     <div class="Overlay" v-if="open">
-        <div v-if="open" class="Backdrop p-[10px] rounded-md bg-green-700">
+        <div v-if="open" class="Backdrop p-[10px] rounded-md">
           <div class="w-full flex justify-end">
-            <button @click="(() => open = !open)" class="text-xl px-[15px] py-[5px] rounded-md border-2 border-black font-extrabold">X</button>
+            <button @click="(() => open = !open)" class="text-xl px-[15px] py-[5px] hover:bg-[#48e6a5] text-[#3fb27f] rounded-md border-2 border-[#3fb27f] hover:border-[#33475b] hover:text-[#33475b] transition-all font-extrabold">X</button>
           </div>
       <form @submit.prevent="handleSubmitData">
         <div>
-          <label class="text-[#33475b] font-bold" for="name">Name Of Repo:</label><br />
+          <label class="text-[#3fb27f] font-bold" for="name">Name Of Repo:</label><br />
           <input v-model="repoName" class="w-full h-[40px] border-black mt-[10px] rounded-md border pl-2 outline-none" type="text" />
         </div>
         <div class="mt-[10px]">
-          <label class="text-[#33475b] font-bold" for="discription">Discription Of Repo:</label><br />
+          <label class="text-[#3fb27f] font-bold" for="discription">Discription Of Repo:</label><br />
           <input v-model="repoDesc" class="w-full h-[40px] border-black mt-[10px] rounded-md border pl-2 outline-none" type="text" />
         </div>
         <button
@@ -124,7 +124,7 @@ const handleSubmitData = async (e) => {
     left: 15%;
     width: 70%;
     padding-top: -50px;
-    background: #fff;
+    background: #33475b;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 20;
